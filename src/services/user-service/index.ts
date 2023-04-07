@@ -1,4 +1,4 @@
-import signUpRepository from "@/repositories/sign-up-repository";
+import signUpRepository from "@/repositories/user-repository";
 import { User } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { duplicatedEmailError } from "./errors";
@@ -23,8 +23,8 @@ async function validateUniqueEmailOrFail(email: string) {
 
 export type CreateUserParams = Pick<User, "email" | "name" | "password">;
 
-const signUpService = {
+const userService = {
   createUser,
 };
 
-export default signUpService;
+export default userService;
