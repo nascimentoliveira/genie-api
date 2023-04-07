@@ -7,11 +7,9 @@ async function findByEmail(email: string, select?: Prisma.UserSelect) {
       email,
     },
   };
-
   if (select) {
     params.select = select;
   }
-
   return prisma.user.findUnique(params);
 }
 
@@ -21,9 +19,9 @@ async function create(data: Prisma.UserUncheckedCreateInput) {
   });
 }
 
-const signUpRepository = {
+const userRepository = {
   findByEmail,
   create,
 };
 
-export default signUpRepository;
+export default userRepository;

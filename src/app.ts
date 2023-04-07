@@ -1,7 +1,9 @@
 import express, { Express } from "express";
 import cors from "cors";
-import { connectDb, disconnectDB } from "./config";
+import { loadEnv, connectDb, disconnectDB } from "./config";
 import { signUpRouter } from "./routes";
+
+loadEnv();
 
 const app = express();
 app

@@ -1,13 +1,12 @@
-import signUpRepository from "@/repositories/user-repository";
+import userRepository from "@/repositories/user-repository";
 import { User } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { duplicatedEmailError } from "./errors";
 
 export async function createUser({ email, name, password }: CreateUserParams): Promise<User> {
   await validateUniqueEmailOrFail(email);
-
   const hashedPassword = await bcrypt.hash(password, 12);
-  return signUpRepository.create({
+  return userRepository.create({
     email,
     name,
     password: hashedPassword,
@@ -15,7 +14,7 @@ export async function createUser({ email, name, password }: CreateUserParams): P
 }
 
 async function validateUniqueEmailOrFail(email: string) {
-  const userWithSameEmail = await signUpRepository.findByEmail(email);
+  const userWithSameEmail = await userRepository.findByEmail(email);
   if (userWithSameEmail) {
     throw duplicatedEmailError();
   }

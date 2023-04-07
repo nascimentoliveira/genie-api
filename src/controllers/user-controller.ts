@@ -4,11 +4,11 @@ import httpStatus from "http-status";
 
 export async function createUser(req: Request, res: Response) {
   const { email, name, password } = req.body;
-
   try {
     const user = await userService.createUser({ email, name, password });
     return res.status(httpStatus.CREATED).json({
       id: user.id,
+      name: user.name,
       email: user.email,
     });
   } catch (error) {
