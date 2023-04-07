@@ -1,7 +1,7 @@
 import express, { Express } from "express";
 import cors from "cors";
 import { loadEnv, connectDb, disconnectDB } from "./config";
-import { signUpRouter } from "./routes";
+import { authenticationRouter, signUpRouter } from "./routes";
 
 loadEnv();
 
@@ -10,7 +10,8 @@ app
   .use(cors())
   .use(express.json())
   .get("/health", (req, res) => res.send("OK!"))
-  .use("/sign-up", signUpRouter);
+  .use("/sign-up", signUpRouter)
+  .use("/auth", authenticationRouter);
 
 
 export function init(): Promise<Express> {
