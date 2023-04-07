@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                    Int          @id @default(autoincrement())
+  email                 String       @unique @db.VarChar(255)
+  name                  String       @db.VarChar(255)
+  password              String       @db.VarChar(255)
+  createdAt             DateTime     @default(now())
+  updatedAt             DateTime     @updatedAt
+  Session               Session[]
+  Account               Account?
+  Wish                  Wish[]
+}
+
+model Session {
+  id                    Int         @id @default(autoincrement())
+  userId                Int
+  User                  User        @relation(fields: [userId], references: [id])
+  token                 String
+  createdAt             DateTime    @default(now())
+  updatedAt             DateTime    @updatedAt
+}
+
+model Account {
+  id                    Int         @id @default(autoincrement())
+  userId                Int         @unique
+  User                  User        @relation(fields: [userId], references: [id])
+  balance               Int
+  createdAt             DateTime    @default(now())
+  updatedAt             DateTime    @updatedAt
+  ExternTransaction     ExternTransaction[]
+}
+
+enum TransactionType {
+  WITHDRAW
+  DEPOSIT
+}
+
+model ExternTransaction {
+  id                    Int         @id @default(autoincrement())
+  accountId             Int
+  Account               Account     @relation(fields: [accountId], references: [id])
+  type                  TransactionType
+  value                 Int
+  createdAt             DateTime    @default(now())
+  updatedAt             DateTime    @updatedAt
+}
+
+model Wish {
+  id                    Int         @id @default(autoincrement())
+  userId                Int
+  User                  User        @relation(fields: [userId], references: [id])
+  name                  String      @db.VarChar(255)
+  value                 Int
+  date                  DateTime
+  imageUrl              String      @db.VarChar(255)
+  createdAt             DateTime    @default(now())
+  updatedAt             DateTime    @updatedAt
+  InternTransaction     InternTransaction[]
+  SubGoal               SubGoal[]
+}
+
+model InternTransaction {
+  id                    Int         @id @default(autoincrement())
+  wishId                Int
+  Wish                  Wish        @relation(fields: [wishId], references: [id])
+  type                  TransactionType
+  value                 Int
+  createdAt             DateTime    @default(now())
+  updatedAt             DateTime    @updatedAt
+}
+
+model SubGoal {
+  id                    Int         @id @default(autoincrement())
+  wishId                Int
+  Wish                  Wish        @relation(fields: [wishId], references: [id])
+  value                 Int
+  date                  DateTime
+  createdAt             DateTime    @default(now())
+  updatedAt             DateTime    @updatedAt
+}
