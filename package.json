@@ -1,5 +1,5 @@
 {
-  "name": "genie-back",
+  "name": "genie-api",
   "version": "1.0.0",
   "description": "API for genie application",
   "main": "index.js",
