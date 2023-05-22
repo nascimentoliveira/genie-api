@@ -7,7 +7,9 @@
 ![stars - genie-api](https://img.shields.io/github/stars/nascimentoliveira/genie-api?color=007ec6&style=flat-square)
 ![forks - genie-api](https://img.shields.io/github/forks/nascimentoliveira/genie-api?color=007ec6&style=flat-square)
 
-# API (Back-end) da Aplicação Genie
+# 🚧👷🏻API (Back-end) da Aplicação Genie
+
+> 👷🏻 Genie está sendo desenvolvido! Algumas funcionalidades podem não estar disponíveis.
 
 Aqui você encontrará informações sobre a estrutura da API, como executá-la localmente, configurar as dependências e realizar as requisições corretamente.
 
@@ -101,7 +103,7 @@ Siga as etapas abaixo para instalar, configurar e executar a API localmente:
 
 6. Execute o `seed` para popular o banco de dados com dados iniciais. Execute o seguinte comando:
    ```bash
-   npm run dev:migration:run
+   npm run dev:seed
    ```
 Isso executará o seed do banco de dados especificado no arquivo `.env`, adicionando dados iniciais para testar a aplicação.
 
